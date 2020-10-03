@@ -14,6 +14,7 @@ If you don't have data, you can download it from [CBICA](https://www.med.upenn.e
 
 ### Load Data
 
+You can modify following code based on below descriptions.
 #### Train
 ```python
 # code in load_data.py and beginning from line 84
@@ -29,7 +30,7 @@ label = tf.reshape(tf.io.decode_raw(parsed_features['label'], out_type=tf.float3
 # self.decode_size is (width, height, depth) >>> (240, 240, 155) in default.
 # You can change width and height based on your GPU memory size.
 ```
-You need to generate TFRecord with the above format. Variables, tumor_type and name, are redundant and used for recording the brain tumor type and sample name only. If you dont't need it, you can set the random variable or same texts when you generate TFRecord.
+You need to generate TFRecords with the above format. Variables, tumor_type and name, are redundant and used for recording the brain tumor type and sample name only. If you dont't need it, you can set the random variable or same texts when you generate TFRecords.
 
 #### Test
 ```python
@@ -37,8 +38,10 @@ You need to generate TFRecord with the above format. Variables, tumor_type and n
 
 features = {'data': tf.io.FixedLenFeature([], dtype=tf.string),
             'name': tf.io.FixedLenFeature([], dtype=tf.string)}
+parsed_features = tf.io.parse_single_example(tfr, features)
+data = tf.reshape(tf.io.decode_raw(parsed_features['data'], out_type=tf.float32), self.decode_size+tuple([4]))
 ```
-
+The format of test TFRecord is similar with load_data.py. The differention is that we don't know true labels and brain tumor types.
 
 ## Environment
 * Ubuntu 20.04  
