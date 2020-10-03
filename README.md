@@ -15,7 +15,7 @@ If you don't have data, you can download it from [CBICA](https://www.med.upenn.e
 ### Load Data
 
 You can modify following code based on below descriptions.
-#### [Train](/load_data.py)
+#### [Train](/load_data.py#L84-L90)
 ```python
 # code in load_data.py and beginning from line 84
 
@@ -37,7 +37,7 @@ label = tf.reshape(tf.io.decode_raw(parsed_features['label'], out_type=tf.float3
 
 You need to generate TFRecords with the above format. Variables, tumor_type and name, are redundant and used for recording the brain tumor type and sample name only. If you dont't need it, you can set the random variable or same texts when you generate TFRecords.
 
-#### Test
+#### [Test](/load_test_data.py#L74-L77)
 ```python
 # code in load_test_data.py and beginning from line 74
 
