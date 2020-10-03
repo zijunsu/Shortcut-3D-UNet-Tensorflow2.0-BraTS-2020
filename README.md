@@ -9,3 +9,8 @@ If you don't have data, you can download it from [CBICA](https://www.med.upenn.e
 * tensorflow >= 2.0
 * tensorlayer (based on your tensorflow version)
 * tensorflow_addons (based on your tensorflow version) 
+
+## Environment
+OS: Ubuntu 20.04  
+CPU: 12 vCPU  
+GPU: 1 V100s  
