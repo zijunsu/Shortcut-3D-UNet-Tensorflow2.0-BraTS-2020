@@ -11,6 +11,6 @@ If you don't have data, you can download it from [CBICA](https://www.med.upenn.e
 * tensorflow_addons (based on your tensorflow version) 
 
 ## Environment
-OS: Ubuntu 20.04  
-CPU: 12 vCPU  
-GPU: 1 V100s  
+* Ubuntu 20.04  
+* 12 Intel vCPU  
+* 1 NVIDIA Tesla V100s 32GB
