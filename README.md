@@ -24,12 +24,17 @@ features = {'data': tf.io.FixedLenFeature([], dtype=tf.string),
             'tumor_type': tf.io.FixedLenFeature([], dtype=tf.string),
             'name': tf.io.FixedLenFeature([], dtype=tf.string)}
 parsed_features = tf.io.parse_single_example(tfr, features)
+# The shape of dimension, 4, mean the four modalities provided by MRI images.
 data = tf.reshape(tf.io.decode_raw(parsed_features['data'], out_type=tf.float32), self.decode_size+tuple([4]))
+# The shape of dimension, 3, mean the three sort of true brain tumors, 
+# must be NET (non-enhancing tumor), ED (edema) and ET (enhancing Tumor) with 0 (background) or 1 (true) in order.
 label = tf.reshape(tf.io.decode_raw(parsed_features['label'], out_type=tf.float32), self.decode_size+tuple([3]))
 
 # self.decode_size is (width, height, depth) >>> (240, 240, 155) in default.
 # You can change width and height based on your GPU memory size.
+
 ```
+
 You need to generate TFRecords with the above format. Variables, tumor_type and name, are redundant and used for recording the brain tumor type and sample name only. If you dont't need it, you can set the random variable or same texts when you generate TFRecords.
 
 #### Test
@@ -48,3 +53,10 @@ The format of test TFRecord is similar with load_data.py. The differention is th
 * 12 Intel vCPU  
 * 1 NVIDIA Tesla V100s 32GB
 * 64G RAM
+
+## BraTS20 Validation Set Scores (Team Name: BIOMIL)
+These [results](https://www.cbica.upenn.edu/BraTS20/lboardValidation.html) is computed by [CBICA Image Processing Portal](https://ipp.cbica.upenn.edu/) online with 125 cases in BraTS 2020 validation dataset.
+| Dice_ET | Dice_WT | Dice_TC | Hausdorff95_ET | Hausdorff95_WT | Hausdorff95_TC |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:------:|
+|0.7539|0.8962|0.82134|32.65874|5.35762|6.57599
+
