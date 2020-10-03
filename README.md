@@ -16,7 +16,7 @@ If you don't have data, you can download it from [CBICA](https://www.med.upenn.e
 
 #### Train
 ```python
-# code in load_data.py
+# code in load_data.py and beginning from line 84
 
 features = {'data': tf.io.FixedLenFeature([], dtype=tf.string),
             'label': tf.io.FixedLenFeature([], dtype=tf.string),
@@ -29,10 +29,19 @@ label = tf.reshape(tf.io.decode_raw(parsed_features['label'], out_type=tf.float3
 # self.decode_size is (width, height, depth) >>> (240, 240, 155) in default.
 # You can change width and height based on your GPU memory size.
 ```
-You need to generate TFRecord with above format. Variables, tumor_type and name, are redundant and used for recording brain tumor type and sample name only. If you dont't need it, you can set random variable or same texts when you generate TFRecord.
+You need to generate TFRecord with the above format. Variables, tumor_type and name, are redundant and used for recording the brain tumor type and sample name only. If you dont't need it, you can set the random variable or same texts when you generate TFRecord.
+
+#### Test
+```python
+# code in load_test_data.py and beginning from line 74
+
+features = {'data': tf.io.FixedLenFeature([], dtype=tf.string),
+            'name': tf.io.FixedLenFeature([], dtype=tf.string)}
+```
 
 
 ## Environment
 * Ubuntu 20.04  
 * 12 Intel vCPU  
 * 1 NVIDIA Tesla V100s 32GB
+* 64G RAM
