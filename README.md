@@ -1,5 +1,5 @@
 # 3D-UNet-Tensorflow2.0-BraTS-2020
-Naive 3D U-Net powered by tensorflow 2.0 and the fast preprocessing pipeline with TFRecord for BraTS 2020 challenge
+Shortcut 3D U-Net powered by tensorflow 2.0 and the fast preprocessing pipeline with TFRecord for BraTS 2020 challenge
 
 ## BraTS Data
 If you don't have data, you can download it from [CBICA](https://www.med.upenn.edu/cbica/brats2020/data.html ) after registration. Or you can download old BraTS version from [Medical Segmentation Decathlon](http://medicaldecathlon.com/) in public.
@@ -46,7 +46,13 @@ features = {'data': tf.io.FixedLenFeature([], dtype=tf.string),
 parsed_features = tf.io.parse_single_example(tfr, features)
 data = tf.reshape(tf.io.decode_raw(parsed_features['data'], out_type=tf.float32), self.decode_size+tuple([4]))
 ```
-The format of test TFRecord is similar with load_data.py. The differention is that we don't know true labels and brain tumor types.
+The format of test TFRecord is similar with [load_data.py](/load_data.py#L84-L90). The differention is that we don't know true labels and brain tumor types.
+
+### [Model](/model.py)
+You can modify the architcture of neural network here and some parameters.
+
+### [Train](/train.py)
+Configuring parameters and the path of TFRecord or summaries makes you get the best results and test model easily in [train.py](/train.py#L13-L44).
 
 ## Environment
 * Ubuntu 20.04  
