@@ -15,7 +15,7 @@ If you don't have data, you can download it from [CBICA](https://www.med.upenn.e
 ### Load Data
 
 You can modify following code based on below descriptions.
-#### Train
+#### [Train](/load_data.py)
 ```python
 # code in load_data.py and beginning from line 84
 
