@@ -55,7 +55,7 @@ The format of test TFRecord is similar with load_data.py. The differention is th
 * 64G RAM
 
 ## BraTS20 Validation Set Scores (Team Name: BIOMIL)
-These [results](https://www.cbica.upenn.edu/BraTS20/lboardValidation.html) is computed by [CBICA Image Processing Portal](https://ipp.cbica.upenn.edu/) online with 125 cases in BraTS 2020 validation dataset.
+These results provided by [leaderboard](https://www.cbica.upenn.edu/BraTS20/lboardValidation.html) is computed by [CBICA Image Processing Portal](https://ipp.cbica.upenn.edu/) online with 125 cases in BraTS 2020 validation dataset.
 | Dice_ET | Dice_WT | Dice_TC | Hausdorff95_ET | Hausdorff95_WT | Hausdorff95_TC |
 |:-----:|:-----:|:-----:|:-----:|:-----:|:------:|
 |0.7539|0.8962|0.82134|32.65874|5.35762|6.57599
