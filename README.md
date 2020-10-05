@@ -1,8 +1,8 @@
 # 3D-UNet-Tensorflow2.0-BraTS-2020
-Shortcut 3D U-Net powered by tensorflow 2.0 and the fast preprocessing pipeline with TFRecord for BraTS 2020 challenge
+Shortcut 3D U-Net powered by Tensorflow 2.0 and the fast preprocessing pipeline with TFRecord for BraTS 2020 challenge
 
 ## BraTS Data
-If you don't have data, you can download it from [CBICA](https://www.med.upenn.edu/cbica/brats2020/data.html ) after registration. Or you can download old BraTS version from [Medical Segmentation Decathlon](http://medicaldecathlon.com/) in public.
+If you don't have data, you can download it from [CBICA](https://www.med.upenn.edu/cbica/brats2020/data.html ) after registration. Or you can download older BraTS version from [Medical Segmentation Decathlon](http://medicaldecathlon.com/) in public.
 
 ## Dependencies
 * Python 3
@@ -14,10 +14,10 @@ If you don't have data, you can download it from [CBICA](https://www.med.upenn.e
 
 ### Load Data
 
-You can modify following code based on below descriptions.
+You can modify the following code based on the below descriptions.
 #### [Train](/load_data.py#L84-L90)
 ```python
-# code in load_data.py and beginning from line 84
+# Excerpt code beginning from line 84 in load_data.py
 
 features = {'data': tf.io.FixedLenFeature([], dtype=tf.string),
             'label': tf.io.FixedLenFeature([], dtype=tf.string),
@@ -27,7 +27,7 @@ parsed_features = tf.io.parse_single_example(tfr, features)
 # The shape of dimension, 4, mean the four modalities provided by MRI images.
 data = tf.reshape(tf.io.decode_raw(parsed_features['data'], out_type=tf.float32), self.decode_size+tuple([4]))
 # The shape of dimension, 3, mean the three sort of true brain tumors, 
-# must be NET (non-enhancing tumor), ED (edema) and ET (enhancing Tumor) with 0 (background) or 1 (true) in order.
+# must be the value  0 (background) or 1 (true) in the order of NET (non-enhancing tumor), ED (edema) and ET (enhancing Tumor).
 label = tf.reshape(tf.io.decode_raw(parsed_features['label'], out_type=tf.float32), self.decode_size+tuple([3]))
 
 # self.decode_size is (width, height, depth) >>> (240, 240, 155) in default.
@@ -35,24 +35,24 @@ label = tf.reshape(tf.io.decode_raw(parsed_features['label'], out_type=tf.float3
 
 ```
 
-You need to generate TFRecords with the above format. Variables, tumor_type and name, are redundant and used for recording the brain tumor type and sample name only. If you dont't need it, you can set the random variable or same texts when you generate TFRecords.
+You need to generate TFRecords with the above format. The variables, tumor_type and name, are redundant and used for recording the brain tumor type and sample name only. If you dont't need it, you can set them as fixed strings when you generate TFRecords.
 
 #### [Test](/load_test_data.py#L74-L77)
 ```python
-# code in load_test_data.py and beginning from line 74
+# Excerpt code beginning from line 74 in load_test_data.py
 
 features = {'data': tf.io.FixedLenFeature([], dtype=tf.string),
             'name': tf.io.FixedLenFeature([], dtype=tf.string)}
 parsed_features = tf.io.parse_single_example(tfr, features)
 data = tf.reshape(tf.io.decode_raw(parsed_features['data'], out_type=tf.float32), self.decode_size+tuple([4]))
 ```
-The format of test TFRecord is similar with [load_data.py](/load_data.py#L84-L90). The differention is that we don't know true labels and brain tumor types.
+The format of test TFRecord is similar to [load_data.py](/load_data.py#L84-L90). The differentiation is that we don't know true labels and brain tumor types.
 
 ### [Model](/model.py)
 You can modify the architcture of neural network here and some parameters.
 
 ### [Train](/train.py)
-Configuring parameters and the path of TFRecord or summaries makes you get the best results and test model easily in [train.py](/train.py#L13-L44).
+Configure parameters and the path of TFRecord or summaries to get the best results and test model more easily in [train.py](/train.py#L13-L44).
 
 ## Environment
 * Ubuntu 20.04  
